@@ -1,0 +1,8 @@
+# python
+*.py[cod]
+
+# configuration
+it_config.py
+
+# emacs files
+*~
