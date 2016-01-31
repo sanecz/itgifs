@@ -1,0 +1,6 @@
+numpy
+nltk
+pytumblr
+flask
+cherrypy
+jabberbot
