@@ -6,3 +6,6 @@ it_config.py
 
 # emacs files
 *~
+
+# ignore db
+*.db
