@@ -1,0 +1,15 @@
+USERNAME="Hell world"
+USER_JID="id@chat.hipchat.com"
+PASSWORD="password
+MUC_HOST="conf.hipchat.com"
+ROOMS=["id_room@conf.hipchat.com", "id_other_room@conf.hipchat.com"]
+HL_MSG="@gimme "
+GIFS_URL="http://127.0.0.1:8080/"
+DB_PATH="./"
+IMAGES_DB="images.db"
+TAGS_DB="tags.db"
+TUMBLR_API_KEY="awesomekey"
+TUMBLR_CONSUMER_SECRET="awesomesecret"
+TUMBLR_OAUTH_TOKEN="awesometoken"
+TUMBLR_OAUTH_KEY="awesomeoauthkey"
+PICKLE_FILE="~/nltk_data/taggers/maxent_treebank_pos_tagger/english.pickle"
