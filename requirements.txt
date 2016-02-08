@@ -4,3 +4,4 @@ pytumblr
 flask
 cherrypy
 jabberbot
+requests

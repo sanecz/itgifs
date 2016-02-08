@@ -16,6 +16,13 @@ def get_gif(tags):
         return jsonify({"error": "not found"}), 404
     return jsonify(images), 200
 
+@app.route("/id/<int:idimg>", methods=["GET"])
+def get_gif_by_id(idimg):
+    images = gifs.get_image_with_id(idimg)
+    if not images:
+        return jsonify({"error": "not found"}), 404
+    return jsonify(images), 200
+
 @app.route("/", methods=["POST"])
 def create_gif():
     if request.headers.get('Content-Type') == 'application/json':
@@ -28,7 +35,7 @@ def create_gif():
     ret = gifs.add_image(url, source, tags)
     return jsonify({"added": ret}), 200
 
-@app.route("/<int:img_id>", methods=["DELETE"])
+@app.route("/id/<int:img_id>", methods=["DELETE"])
 def delete_gif(img_id):
     gifs.del_image(img_id)
     return jsonify({}), 200

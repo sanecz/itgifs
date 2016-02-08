@@ -28,13 +28,21 @@ class ItGifs(object):
         shutil.copyfile(filename, it_config.DB_PATH + config_file)
 
     @staticmethod
+    def toint(x):
+        """ convert a dict with an integer as key (in string)
+        to a dict with an integer as with (in integer) """
+        if isinstance(x, dict):
+            return {int(k):v for k,v in x.items()}
+        return x
+
+    @staticmethod
     def load_dict(config_file):
         try:
             f = open(it_config.DB_PATH + config_file, "r")
         except IOError:
             return {}
         try:
-            content = json.loads(f.read())
+            content = json.loads(f.read(), object_hook=ItGifs.toint)
         except ValueError:
             return {}
         f.close()
@@ -98,31 +106,31 @@ class ItGifs(object):
         >>> t.get_image_with_id(1)
         {1: ['testurl1', 'testurl2']}
         >>> t.get_image_with_id(9999)
-        {9999: None}
         """
-        return {imgid: self.images.get(imgid)}
+        image = self.images.get(imgid)
+        return {imgid: image} if image else None
 
     def add_image(self, url, source, inc_tags):
         """
         >>> t = ItGifs.__new__(ItGifs); t.tagger = nltk.data.load(it_config.PICKLE_FILE)
         >>> t.images = OrderedDict(); t.tags = OrderedDict()
         >>> t.add_image("testurl", "testsource", "tag1 tag2")
-        True
+        1
         >>> t.add_image("testurl", "testnewsource", "tag1 tag2")
-        False
+        -1
         >>> t.add_image("testnewurl", "testsource", "tag1 tag2")
-        False
+        -1
         >>> t.images[1] == ["testurl", "testsource"] and t.tags[1] == ["tag1", "tag2"]
-        True
+        1
         """
         inc_tags = self.get_tags(inc_tags)
         tagid = int(next(reversed(self.tags), 0)) + 1
         if self.get_image_with_url(url) or self.get_image_with_url(source):
-            return False
+            return -1
         imgid = int(next(reversed(self.images), 0)) + 1
         self.images.update({imgid: [url, source]})
         self.tags.update({tagid: inc_tags})
-        return True
+        return imgid
 
     def del_image(self, imgid):
         """
